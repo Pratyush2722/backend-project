@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
+const dbgr = require('debug')("development:mongoose");
+const config = require('config');
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/backend-project")
+  .connect(`${config.get("MONGODB_URI")}/backend-project`)
   .then(() => {
-    console.log("Database connected successfully");
+     dbgr("Database connected successfully");
   })
   .catch(err => {
-    console.error("Database connection error:", err);
+    dbgr("Database connection error:", err);
   });
 
 module.exports = mongoose.connection;
